@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 setup(
 	name='cocotask',
     
-	version='0.1.0.0',
+	version='0.1.0.1',
     
     description='A Framework for handling multiple Rabbitmq consumers using Pika',
     
