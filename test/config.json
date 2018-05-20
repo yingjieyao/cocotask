@@ -1,0 +1,11 @@
+{
+    "SERVER_ADDRESS": "127.0.0.1",
+    "SERVER_PORT": 5672,
+    "USERNAME": "guest",
+    "PASSWORD": "guest",
+    "EXCHANGE_NAME": "test_exchange_1",
+    "QUEUE_NAME": "test_queue_1",
+    "EXCHANGE_TYPE": "direct"
+}
+
+
