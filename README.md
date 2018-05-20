@@ -1,7 +1,7 @@
 # cocotask
-- A framework to help creating multiple Rabbitmq consumers based on Pika
+### A framework to help creating multiple Rabbitmq consumers based on Pika
 
-Reasons for creating this framework:
+**Why creating this framework?**
 * Minimize the efforts for team members to handcraft the code for exchange/queue handling
 * Most usage for Rabbitmq is simple pub/sub on different exchanges/queues (in my case)
 * Team members should focus on how to handle messages

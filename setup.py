@@ -10,7 +10,7 @@ with open(path.join(here, 'README.md'), encoding='utf-8') as f:
 setup(
 	name='cocotask',
     
-	version='0.1.0.4',
+	version='0.1.0.5',
     
     description='A Framework for handling multiple Rabbitmq consumers using Pika',
     long_description=long_description,
