@@ -1,3 +1,6 @@
 .pyc
 __pycache__/*
+dist/*
+cocotask.egg-info/*
+build/*
 

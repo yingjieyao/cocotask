@@ -1,4 +1,4 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 
 setup(
 	name='cocotask',
@@ -15,8 +15,9 @@ setup(
 
     license='MIT',
     
-    packages=[''],
-    
+#    packages=[''],
+    packages=find_packages(exclude=['release.sh']),
+
     zip_safe=False,
       
     entry_points={
