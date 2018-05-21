@@ -1,5 +1,5 @@
 {
-	"MQ_TYPE": "RMQ",
+	"MQ_TYPE": "KAFKA",
 
 	"RMQ": {
 	    "SERVER_ADDRESS": "127.0.0.1",

@@ -5,8 +5,8 @@ default_logger = logging.getLogger(__name__)
 
 class CocoKafkaConsumer(CocoMQConsumer):
     def __init__(self, conf, user_consumer, logger = default_logger):
-    	super().__init__(conf, callback, logger)
     	self._consumer = None
+    	super().__init__(conf, user_consumer, logger)
         
     def connect(self):
         self._consumer = KafkaConsumer(bootstrap_servers=self._config['BOOTSTRAP_SERVERS'],
