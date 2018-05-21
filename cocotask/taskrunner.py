@@ -1,6 +1,6 @@
 import argparse
 import importlib
-from cocotask import ConsumerManager
+from cocotask import CocoConsumerManager
 import logging
 import json
 import sys
@@ -38,7 +38,7 @@ def main():
 
 	consumer_class = class_for_name(args.module, args.consumer, args.modulepath)
 
-	manager = ConsumerManager(config, consumer_class, args.worker_number)
+	manager = CocoConsumerManager(config, consumer_class, args.worker_number)
 	manager.start()
 
 

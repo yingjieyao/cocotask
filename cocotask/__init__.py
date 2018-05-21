@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from .rmq_client import RMQClient
+from .user_consumer import CocoUserConsumer
+from .consumer_manager import CocoConsumerManager
+
 from .rmq_producer import RMQProducer
-from .consumer_manager import ConsumerManager
-from .base_consumer import BaseConsumer

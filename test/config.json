@@ -1,11 +1,22 @@
 {
-    "SERVER_ADDRESS": "127.0.0.1",
-    "SERVER_PORT": 5672,
-    "USERNAME": "guest",
-    "PASSWORD": "guest",
-    "EXCHANGE_NAME": "test_exchange_1",
-    "QUEUE_NAME": "test_queue_1",
-    "EXCHANGE_TYPE": "direct"
+	"MQ_TYPE": "RMQ",
+
+	"RMQ": {
+	    "SERVER_ADDRESS": "127.0.0.1",
+	    "SERVER_PORT": 5672,
+	    "USERNAME": "guest",
+	    "PASSWORD": "guest",
+	    "EXCHANGE_NAME": "test_exchange_1",
+	    "QUEUE_NAME": "test_queue_1",
+	    "EXCHANGE_TYPE": "direct"		
+	},
+
+	"KAFKA": {
+		"BOOTSTRAP_SERVERS": "127.0.0.1",
+		"BROKER_PORT": 9092,
+		"TOPIC": "test_topic_1",
+		"GROUP_ID": "test_consumer_group_1"
+	}
 }
 
 

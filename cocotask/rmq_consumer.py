@@ -2,28 +2,27 @@
 
 import pika
 import json
+from .mq_consumer import CocoMQConsumer
 import logging
-
 default_logger = logging.getLogger(__name__)
 
-class RMQClient(object):
+class CocoRMQConsumer(CocoMQConsumer):
 
-    def __init__(self, conf, callback = None, logger = default_logger):
+    def __init__(self, conf, user_consumer, logger = default_logger):
         self._exchange_name = conf['EXCHANGE_NAME']
         self._queue_name = conf['QUEUE_NAME']
         self._exchange_type = conf['EXCHANGE_TYPE']
-        self._setting = conf
-        self._callback = callback
         self._connection = None
-        self._logger = default_logger
+        super().__init__(conf, user_consumer, logger)
 
-    def connect(self, callback = None):
+    def connect(self):
         self._logger.debug('start connect')
-        credentials = pika.PlainCredentials(self._setting['USERNAME'], self._setting['PASSWORD'])
-        parameters = pika.ConnectionParameters(self._setting['SERVER_ADDRESS'],
-                                               self._setting['SERVER_PORT'],
+        credentials = pika.PlainCredentials(self._config['USERNAME'], self._config['PASSWORD'])
+        parameters = pika.ConnectionParameters(self._config['SERVER_ADDRESS'],
+                                               self._config['SERVER_PORT'],
                                                '/',
                                                credentials)
+
         self._connection = pika.BlockingConnection(parameters)
 
         channel = self._connection.channel()
@@ -35,9 +34,6 @@ class RMQClient(object):
         channel.queue_bind(exchange = self._exchange_name,
                            queue = result.method.queue)
 
-        if self._callback == None:
-            return
-
         channel.basic_qos(prefetch_count=1)
         channel.basic_consume(self.on_message,
                               queue=self._queue_name)
@@ -45,5 +41,5 @@ class RMQClient(object):
         channel.start_consuming()
 
     def on_message(self, ch, method, properties, body):
-        self._callback(body)
+        self._user_consumer.callback(body)
         ch.basic_ack(delivery_tag = method.delivery_tag)
