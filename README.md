@@ -81,7 +81,7 @@ In test/config.json
 }
 
 ```
-You can build your own dictionary object for sure, as long as it contains the required fields.
+You can build your own dictionary object as configuration for sure, as long as it contains the required fields.
 
 
 That's it. Simple and straightforward.
