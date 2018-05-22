@@ -4,6 +4,7 @@ from cocotask import CocoConsumerManager
 import logging
 import json
 import sys
+import codecs
 
 def class_for_name(module_name, class_name, path):
     sys.path.append(path)
@@ -14,7 +15,7 @@ def class_for_name(module_name, class_name, path):
     return c
 
 def load_config(path):
-    with open(path, 'r') as f:
+    with codecs.open(path, 'r', 'utf-8') as f:
         config = json.load(f)
 
     return config
@@ -37,7 +38,7 @@ def main():
 
     config = load_config(args.config)
 
-    worker_class = class_for_name(args.module, args.consumer, args.modulepath)
+    worker_class = class_for_name(args.module, args.worker, args.modulepath)
 
     manager = CocoConsumerManager(config, worker_class, args.worker_number)
     manager.start()

@@ -21,8 +21,6 @@ class CocoConsumerManager(object):
             logger = customized_logger
 
     def start(self):
-        print('0')
-
         self._pool = Pool()
         results = [self._pool.apply_async(CocoConsumerManager._start_consumer, args=[x, self._worker_class, self._config]) for x in range(self._pool_size)]
         self._pool.close()

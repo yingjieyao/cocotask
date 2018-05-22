@@ -10,7 +10,7 @@ with open(path.join(here, 'README.md'), encoding='utf-8') as f:
 setup(
 	name='cocotask',
     
-	version='0.1.1.1',
+	version='0.1.1.3',
     
     description='A Framework to simplify building message queue prod/consumer service on either Rabbitmq or Kafka',
     long_description=long_description,
@@ -22,7 +22,7 @@ setup(
     
     author_email='zlike@yahoo.com',
 
-    license='MIT',
+    license='MIT',  
     
 #    packages=[''],
     packages=find_packages(exclude=['release.sh']),
