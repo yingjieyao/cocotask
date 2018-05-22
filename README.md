@@ -25,8 +25,7 @@
 
 5. now you have cocotask setup on your machine. To test, you can go to the ./test folder
    - Run: `python producer_test.py`   (this will post a string. Code is very simple)
-   - In another window, under ./test, run: 
-     `cocotask ./config.json userworkers TestWorker 4`
+   - In another window, under ./test, run:  **`cocotask ./config.json userworkers TestWorker 4`** 
      you'll see the worker starts and process 1 message we just posted.
 
 6. So the key part is how we use cocotask command tool. the parameters are:
