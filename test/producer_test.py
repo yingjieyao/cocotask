@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
-from cocotask import RMQProducer
+from cocotask import CocoProducerManager as pm
 import json
 
 with open('config.json', 'r') as f:
 	config = json.load(f)
 
-producer = RMQProducer(config)
+producer = pm.create_instance(config)
 
 producer.connect()
-producer.send('aaaa11111')
+producer.send(b'aaaa44444')
 producer.close()

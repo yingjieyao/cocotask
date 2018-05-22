@@ -2,33 +2,34 @@
 
 import pika
 import json
+from .base_producer import CocoBaseProducer
 
-class RMQProducer(object):
+class CocoRMQProducer(CocoBaseProducer):
 
-    def __init__(self, conf):
+    def __init__(self, conf, logger = None):
         self._exchange_name = conf['EXCHANGE_NAME']
         self._queue_name = conf['QUEUE_NAME']
         self._exchange_type = conf['EXCHANGE_TYPE']
-        self.setting = conf
-        self.connection = None
-        self.channel = None
+        self._connection = None
+        self._channel = None
+        super().__init__(conf, logger)
 
-    def connect(self, callback = None):
-        credentials = pika.PlainCredentials(self.setting['USERNAME'], self.setting['PASSWORD'])
-        parameters = pika.ConnectionParameters(self.setting['SERVER_ADDRESS'],
-                                               self.setting['SERVER_PORT'],
+    def connect(self):
+        credentials = pika.PlainCredentials(self._config['USERNAME'], self._config['PASSWORD'])
+        parameters = pika.ConnectionParameters(self._config['SERVER_ADDRESS'],
+                                               self._config['SERVER_PORT'],
                                                '/',
                                                credentials)
-        self.connection = pika.BlockingConnection(parameters)
-        self.channel = self.connection.channel()
+        self._connection = pika.BlockingConnection(parameters)
+        self._channel = self._connection.channel()
 
-        self.channel.exchange_declare(exchange=self._exchange_name,
+        self._channel.exchange_declare(exchange=self._exchange_name,
                                  exchange_type=self._exchange_type)
-        self.channel.queue_declare(queue=self._queue_name, durable=True)
+        self._channel.queue_declare(queue=self._queue_name, durable=True)
 
 
     def send(self, data):
-      self.channel.basic_publish(exchange=self._exchange_name, 
+      self._channel.basic_publish(exchange=self._exchange_name, 
                       routing_key=self._queue_name, 
                       body=data, 
                       properties=pika.BasicProperties(
@@ -36,6 +37,6 @@ class RMQProducer(object):
                       ))
 
     def close(self):
-        self.connection.close()
+        self._connection.close()
 
 

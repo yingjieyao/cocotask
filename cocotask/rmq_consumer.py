@@ -2,21 +2,18 @@
 
 import pika
 import json
-from .mq_consumer import CocoMQConsumer
-import logging
-default_logger = logging.getLogger(__name__)
+from .base_consumer import CocoBaseConsumer
 
-class CocoRMQConsumer(CocoMQConsumer):
+class CocoRMQConsumer(CocoBaseConsumer):
 
-    def __init__(self, conf, user_consumer, logger = default_logger):
+    def __init__(self, conf, worker, logger = None):
         self._exchange_name = conf['EXCHANGE_NAME']
         self._queue_name = conf['QUEUE_NAME']
         self._exchange_type = conf['EXCHANGE_TYPE']
         self._connection = None
-        super().__init__(conf, user_consumer, logger)
+        super().__init__(conf, worker, logger)
 
     def connect(self):
-        self._logger.debug('start connect')
         credentials = pika.PlainCredentials(self._config['USERNAME'], self._config['PASSWORD'])
         parameters = pika.ConnectionParameters(self._config['SERVER_ADDRESS'],
                                                self._config['SERVER_PORT'],
@@ -41,5 +38,5 @@ class CocoRMQConsumer(CocoMQConsumer):
         channel.start_consuming()
 
     def on_message(self, ch, method, properties, body):
-        self._user_consumer.callback(body)
+        self._worker.process(body)
         ch.basic_ack(delivery_tag = method.delivery_tag)

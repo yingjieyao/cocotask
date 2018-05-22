@@ -14,32 +14,33 @@ def class_for_name(module_name, class_name, path):
     return c
 
 def load_config(path):
-	with open(path, 'r') as f:
-		config = json.load(f)
+    with open(path, 'r') as f:
+        config = json.load(f)
 
-	return config
+    return config
 
 
 def main():
-	parser = argparse.ArgumentParser()
-	parser.add_argument('config', help = 'define config file path')
-	parser.add_argument('module', help = 'define the module name')
-	parser.add_argument('consumer', help = 'define the consumer class name')
-	parser.add_argument('worker_number', help = 'number of consumers to work', type=int)
-	parser.add_argument('--logginglevel', help = 'define logging level')
-	parser.add_argument('--modulepath', default = '.', help = 'path to the module. Default to .')
+    parser = argparse.ArgumentParser()
+    parser.add_argument('config', help = 'define config file path')
+    parser.add_argument('module', help = 'define the module name')
+    parser.add_argument('worker', help = 'define the worker class name')
+    parser.add_argument('worker_number', help = 'number of workers to work', type=int)
+    parser.add_argument('--logginglevel', help = 'define logging level')
+    parser.add_argument('--modulepath', default = '.', help = 'path to the module. Default to .')
 
-	args = parser.parse_args()
+    args = parser.parse_args()
 
-	if args.logginglevel:
-	    logging.basicConfig(level=args.logginglevel)
+    if args.logginglevel:
+        level = getattr(logging, args.logginglevel.upper(), None)
+        logging.basicConfig(level=level)
 
-	config = load_config(args.config)
+    config = load_config(args.config)
 
-	consumer_class = class_for_name(args.module, args.consumer, args.modulepath)
+    worker_class = class_for_name(args.module, args.consumer, args.modulepath)
 
-	manager = CocoConsumerManager(config, consumer_class, args.worker_number)
-	manager.start()
+    manager = CocoConsumerManager(config, worker_class, args.worker_number)
+    manager.start()
 
 
 if __name__ == '__main__':  # pragma: no cover
