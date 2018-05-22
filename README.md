@@ -15,7 +15,7 @@
 
 1. install rabbitmq or kafka on local machine (either docker or pure rabbitmq). 
    - Rabbitmq: https://www.rabbitmq.com/
-   - Kafka: https://kafka.apache.org/quickstart  (for kafka, you have to manually create a topic named `test_topic_1` in order to run the test. In order to try multiple consumers, you need to set partiions to 2 or above, not 1)
+   - Kafka: https://kafka.apache.org/quickstart  (for kafka, you have to manually create a topic named `test_topic_1` in order to run the test. In order to try multiple consumers, you need to set partitions to 2 or above, not 1)
 
 2. make sure it's running Python 3.5 above
 
