@@ -37,4 +37,51 @@
 
 7. Develop your own worker class and try
 
+## Development
+
+**Build your own worker**
+
+```
+from cocotask import CocoBaseWorker
+
+class TestWorker(CocoBaseWorker):
+
+    def process(self, body):
+        print(body)
+```
+Check userworkers/test_worker.py for reference.
+
+**Post a message**
+```
+from cocotask import CocoProducerManager as pm
+import json
+
+with open('config.json', 'r') as f:
+    config = json.load(f)
+
+producer = pm.create_instance(config)
+
+producer.connect()
+producer.send('12345678')
+producer.close()
+```
+**Switch from RabbitMQ to Kafka or reverse**
+In test/config.json
+```
+{
+    "MQ_TYPE": "RMQ",  # change this to KAFKA if your underlying MQ is KAFKA
+
+    "RMQ": {
+        ...      
+    },
+
+    "KAFKA": {
+        ...
+    }
+}
+
+```
+You can build your own dictionary object for sure, as long as it contains the required fields.
+
+
 That's it. Simple and straightforward.
