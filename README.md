@@ -1,11 +1,11 @@
 # cocotask
-### Build task queue on either RabbitMQ or Kafka! Simple! Easy! and FAST!!!!
+### Build task queue on either Rabbitmq, Kafka or Redis! Simple! Easy! and FAST!!!!
 
 **Why creating this framework?**
-* No need to worry about using Rabbitmq or Kafka. Just pick one and go! It's simply a few lines of config changes in future if you want to switch to another
-* Hide all details for connecting/subscribing/publishing/etc. on either Kafka or Rabbitmq. You can just use the same API for both!
+* Most task queues using Rabbitmq/Kafka/Redis are doing the same thing, but there is no unified wrapper. It's a waste of time to write code for different MQs if all you need is a task queue to distribute jobs
+* No need to worry about using Rabbitmq, Kafka or Redis. Just pick one and go! It's simply a few lines of config changes in future if you want to switch to a different underlying system
+* Hide all details for connecting/subscribing/publishing/etc. You can just use the same API for any of Kafka/Rabbitmq/Redis!
 * Minimize the efforts for team members to handcraft the code for exchange/queue handling
-* Most usage for Rabbitmq is simple pub/sub on different exchanges/queues (in my case)
 * Team members should focus on how to handle messages
 * There lacks good mananger tool/lib to handle creating multiple consumers (although it's simple)
 * Celery is actually the best one if it supports windows, unfortunately it's not. So we have to use pure rabbitmq and develop our own tool (somewhat similar to Celery)
@@ -16,10 +16,11 @@
 1. install rabbitmq or kafka on local machine (either docker or pure rabbitmq). 
    - Rabbitmq: https://www.rabbitmq.com/
    - Kafka: https://kafka.apache.org/quickstart  (for kafka, you have to manually create a topic named `test_topic_1` in order to run the test. In order to try multiple consumers, you need to set partitions to 2 or above, not 1)
+   - Redis: https://redis.io/download
 
 2. make sure it's running Python 3.5 above
 
-3. pip install pika
+3. pip install pika kafka-python redis jsmin
 
 4. pip install cocotask
 
@@ -78,10 +79,16 @@ In test/config.json
 
     "KAFKA": {
         ...
+    },
+
+    "REDIS": {
+        ...
     }
 }
 
 ```
+**We do support SASL_PLAINTEXT for kafka and simple auth in Redis as in the comments of the config file. Check their website to see how to setup the authentication**
+
 You can build your own dictionary object as configuration for sure, as long as it contains the required fields.
 
 

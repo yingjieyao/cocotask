@@ -1,6 +1,7 @@
 from multiprocessing import Pool
-from .rmq_consumer import CocoRMQConsumer
-from .kafka_consumer import CocoKafkaConsumer
+from .rabbitmq.rmq_consumer import CocoRMQConsumer
+from .kafka.kafka_consumer import CocoKafkaConsumer
+from .redis.redis_consumer import CocoRedisConsumer
 import logging
 logger = logging.getLogger(__name__)
 
@@ -9,7 +10,8 @@ class CocoConsumerManager(object):
 
     CONSUMER_CLASS = {
         "RMQ": CocoRMQConsumer,
-        "KAFKA": CocoKafkaConsumer
+        "KAFKA": CocoKafkaConsumer,
+        "REDIS": CocoRedisConsumer
     }
 
     def __init__(self, config, worker_class, pool_size, customized_logger = None):

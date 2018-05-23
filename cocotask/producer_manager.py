@@ -1,5 +1,6 @@
-from .rmq_producer import CocoRMQProducer
-from .kafka_producer import CocoKafkaProducer
+from .rabbitmq.rmq_producer import CocoRMQProducer
+from .kafka.kafka_producer import CocoKafkaProducer
+from .redis.redis_producer import CocoRedisProducer
 import logging
 default_logger = logging.getLogger(__name__)
 
@@ -7,7 +8,8 @@ class CocoProducerManager(object):
 
     CONSUMER_CLASS = {
         "RMQ": CocoRMQProducer,
-        "KAFKA": CocoKafkaProducer
+        "KAFKA": CocoKafkaProducer,
+        "REDIS": CocoRedisProducer
     }
 
     @staticmethod

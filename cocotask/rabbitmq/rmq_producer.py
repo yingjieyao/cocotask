@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-import pika
+import redis
 import json
-from .base_producer import CocoBaseProducer
+from ..base_producer import CocoBaseProducer
 
 class CocoRMQProducer(CocoBaseProducer):
 

@@ -3,6 +3,7 @@ import importlib
 from cocotask import CocoConsumerManager
 import logging
 import json
+from jsmin import jsmin
 import sys
 import codecs
 
@@ -16,7 +17,8 @@ def class_for_name(module_name, class_name, path):
 
 def load_config(path):
     with codecs.open(path, 'r', 'utf-8') as f:
-        config = json.load(f)
+        config = json.loads(jsmin(f.read()))
+
 
     return config
 

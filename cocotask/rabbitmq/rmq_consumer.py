@@ -2,7 +2,7 @@
 
 import pika
 import json
-from .base_consumer import CocoBaseConsumer
+from ..base_consumer import CocoBaseConsumer
 
 class CocoRMQConsumer(CocoBaseConsumer):
 

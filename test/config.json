@@ -1,5 +1,5 @@
 {
-    "MQ_TYPE": "RMQ",
+    "MQ_TYPE": "REDIS",
 
     "RMQ": {
         "SERVER_ADDRESS": "127.0.0.1",
@@ -16,7 +16,16 @@
         "BROKER_PORT": 9092,
         "TOPIC": "test_topic_1",
         "GROUP_ID": "test_consumer_group_1"
+//        "USERNAME": "alice",        // SASL_PLAINTEXT authentication is optional
+//        "PASSWORD": "alice-secret"
+    },
+
+    "REDIS": {
+        "SERVER": "127.0.0.1",
+        "PORT": 6379,
+        "DB": 7,
+        "QUEUE": "trainqueue",
+        "PASSWORD": "abcd1234"  // password is optional
     }
+
 }
-
-

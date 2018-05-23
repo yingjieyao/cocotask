@@ -10,9 +10,9 @@ with open(path.join(here, 'README.md'), encoding='utf-8') as f:
 setup(
 	name='cocotask',
     
-	version='0.1.1.3',
+	version='0.1.1.4',
     
-    description='A Framework to simplify building message queue prod/consumer service on either Rabbitmq or Kafka',
+    description='An unified framework to build task queue on Rabbitmq | Kafka | Redis',
     long_description=long_description,
     long_description_content_type='text/markdown', 
 
@@ -35,9 +35,9 @@ setup(
         ],
     },
 
-	keywords='message queue MQ Pika kafka-python rabbitmq kafka rmq producer consumer celery',
+	keywords='task message queue MQ Pika kafka-python rabbitmq kafka redis rmq producer consumer celery',
     
-    install_requires=['pika'],
+    install_requires=['pika', 'kafka-python', 'redis', 'jsmin'],
 
     project_urls={  # Optional
         'Bug Reports': 'https://github.com/likexx/cocotask/issues',
