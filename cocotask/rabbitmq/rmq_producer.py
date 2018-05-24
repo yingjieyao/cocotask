@@ -2,6 +2,7 @@
 
 import redis
 import json
+import pika
 from ..base_producer import CocoBaseProducer
 
 class CocoRMQProducer(CocoBaseProducer):
