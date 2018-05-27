@@ -1,9 +1,10 @@
 {
-    "MQ_TYPE": "REDIS",
+    "MQ_TYPE": "RMQ",
 
     "RMQ": {
         "SERVER_ADDRESS": "127.0.0.1",
         "SERVER_PORT": 5672,
+        "VIRTUAL_HOST": "",
         "USERNAME": "guest",
         "PASSWORD": "guest",
         "EXCHANGE_NAME": "test_exchange_1",

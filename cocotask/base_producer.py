@@ -9,13 +9,16 @@ class CocoBaseProducer(ABC):
 
         super().__init__()
 
+
     @abstractmethod
     def connect(self):
         pass
 
+
     @abstractmethod
     def send(self, data):
         pass
+
 
     @abstractmethod
     def close(self):

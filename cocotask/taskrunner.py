@@ -15,6 +15,7 @@ def class_for_name(module_name, class_name, path):
     c = getattr(m, class_name)
     return c
 
+
 def load_config(path):
     with codecs.open(path, 'r', 'utf-8') as f:
         config = json.loads(jsmin(f.read()))

@@ -15,6 +15,7 @@ class CocoRedisProducer(CocoBaseProducer):
         self._password = conf.get("PASSWORD", None)
         super().__init__(conf, logger)
 
+
     def connect(self):
         self._client = redis.Redis(host = self._host, 
                                    port = self._port, 
@@ -23,8 +24,10 @@ class CocoRedisProducer(CocoBaseProducer):
                                    password = self._password)
         self._client.ping()
 
+
     def send(self, data):
         self._client.lpush(self._queue, data)
+
 
     def close(self):
         pass

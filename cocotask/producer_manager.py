@@ -12,6 +12,7 @@ class CocoProducerManager(object):
         "REDIS": CocoRedisProducer
     }
 
+
     @staticmethod
     def create_instance(config, logger = default_logger):
         producer_type = config["MQ_TYPE"]

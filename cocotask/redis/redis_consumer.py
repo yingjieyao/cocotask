@@ -15,6 +15,7 @@ class CocoRedisConsumer(CocoBaseConsumer):
         self._password = conf.get("PASSWORD", None)
         super().__init__(conf, worker, logger)
 
+
     def connect(self):
         self._client = redis.Redis(host = self._host, 
                                    port = self._port, 

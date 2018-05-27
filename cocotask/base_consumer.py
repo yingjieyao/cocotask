@@ -9,6 +9,7 @@ class CocoBaseConsumer(ABC):
         self._logger = logger if logger else default_logger
         super().__init__()
 
+
     @abstractmethod
     def connect(self):
         pass
