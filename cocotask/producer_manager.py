@@ -15,9 +15,14 @@ class CocoProducerManager(object):
 
     @staticmethod
     def create_instance(config, logger = default_logger):
-        producer_type = config["MQ_TYPE"]
-        producer_class = CocoProducerManager.CONSUMER_CLASS[producer_type]
+        producer = None
+        try:
+            producer_type = config["MQ_TYPE"]
+            producer_class = CocoProducerManager.CONSUMER_CLASS[producer_type]
 
-        sub_config = config[producer_type]
-        producer = producer_class(sub_config, logger)
+            sub_config = config[producer_type]
+            producer = producer_class(sub_config, logger)
+        except Exception as err:
+            logger.error(err)
+
         return producer
