@@ -10,7 +10,7 @@ with open(path.join(here, 'README.md'), encoding='utf-8') as f:
 setup(
 	name='cocotask',
     
-	version='0.1.1.7',
+	version='0.1.1.8',
     
     description='An unified framework to build task queue on Rabbitmq | Kafka | Redis',
     long_description=long_description,
