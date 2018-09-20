@@ -40,6 +40,28 @@ class ConsumerTests(unittest.TestCase):
         mock_method.assert_called_once()
 
 
+    @patch.object(CocoRMQConsumer, 'connect')
+    def test_create_rmq_consumer_with_HEARTBEAT(self, mock_method):
+        config = {
+            "MQ_TYPE":"RMQ",
+            "RMQ":{
+                "SERVER_ADDRESS": "127.0.0.1",
+                "SERVER_PORT": 5672,
+                "VIRTUAL_HOST": "",
+                "USERNAME": "guest",
+                "PASSWORD": "guest",
+                "EXCHANGE_NAME": "test_exchange_1",
+                "QUEUE_NAME": "test_queue_1",
+                "EXCHANGE_TYPE": "direct",
+                "HEARTBEAT": 10             
+            }
+        }
+
+        manager = CocoConsumerManager(config, TestWorker, 1)
+        manager._start_consumer(1, TestWorker, config)
+        mock_method.assert_called_once()
+
+
     @patch.object(CocoKafkaConsumer, 'connect')
     def test_create_kafka_consumer_with_mock(self, mock_method):
         config = {

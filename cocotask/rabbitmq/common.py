@@ -5,7 +5,8 @@ def createBlockingConnection(config):
 	parameters = pika.ConnectionParameters(config['SERVER_ADDRESS'],
 	                                   config['SERVER_PORT'],
 	                                   config.get("VIRTUAL_HOST", "/"),
-	                                   credentials, heartbeat_interval=0)
+	                                   credentials, 
+	                                   heartbeat=config.get("HEARTBEAT", 0))
 	connection = pika.BlockingConnection(parameters)
 	channel = connection.channel()
 
