@@ -1,9 +1,8 @@
 # -*- coding: utf-8 -*-
-
-import pika
-import json
+import pika.exceptions as exceptions
 from ..base_consumer import CocoBaseConsumer
 from .common import createBlockingConnection
+
 
 class CocoRMQConsumer(CocoBaseConsumer):
 
@@ -12,7 +11,6 @@ class CocoRMQConsumer(CocoBaseConsumer):
         self._queue_name = conf['QUEUE_NAME']
         self._connection = None
         super().__init__(conf, worker, logger)
-
 
     def connect(self):
         self._connection, channel = createBlockingConnection(self._config)
@@ -24,7 +22,9 @@ class CocoRMQConsumer(CocoBaseConsumer):
                               queue=self._queue_name)
         channel.start_consuming()
 
-
     def on_message(self, ch, method, properties, body):
         self._worker.process(body)
-        ch.basic_ack(delivery_tag = method.delivery_tag)
+        try:
+            ch.basic_ack(delivery_tag = method.delivery_tag)
+        except exceptions.ChannelClosed as e:
+            self._logger.error("channel closed. exp: %s" % repr(e))
