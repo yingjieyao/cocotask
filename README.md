@@ -8,7 +8,7 @@
 * Minimize the efforts for team members to handcraft the code for exchange/queue handling
 * Team members should focus on how to handle messages
 * There lacks good mananger tool/lib to handle creating multiple consumers (although it's simple)
-* Celery is actually the best one if it supports windows, unfortunately it's not. So we have to use pure rabbitmq and develop our own tool (somewhat similar to Celery)
+* Celery is the original idea, but it doesn't support Kafka and Windows platform. It's also tightly coupled with Python alone.
 <hr>
 
 ## Test

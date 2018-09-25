@@ -1,6 +1,5 @@
 import pika
 
-
 def createBlockingConnection(config):
     credentials = pika.PlainCredentials(config['USERNAME'], config['PASSWORD'])
     parameters = pika.ConnectionParameters(
