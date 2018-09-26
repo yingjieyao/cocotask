@@ -6,7 +6,6 @@ import json
 from jsmin import jsmin
 import sys
 import codecs
-import logger
 
 
 def class_for_name(module_name, class_name, path):
@@ -36,13 +35,11 @@ def main():
 
     args = parser.parse_args()
 
-    level = logging.DEBUG
     if args.logginglevel:
         level = getattr(logging, args.logginglevel.upper(), None)
         logging.basicConfig(level=level)
 
     config = load_config(args.config)
-    logger.init(__name__, config.get("LOGFILE", "cocotask.log", level=level))
     worker_class = class_for_name(args.module, args.worker, args.modulepath)
 
     manager = CocoConsumerManager(config, worker_class, args.worker_number)

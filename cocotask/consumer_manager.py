@@ -20,7 +20,7 @@ class CocoConsumerManager(object):
         self._pool_size = pool_size
         self._config = config
         if customized_logger:
-            logger = customized_logger
+            self._logger = customized_logger
 
     def start(self):
         self._pool = Pool()

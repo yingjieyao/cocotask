@@ -3,8 +3,6 @@ import logging
 import sys
 import os
 
-logger = None
-
 
 def init(name, logfile, level=logging.DEBUG, with_console=True):
     global logger
@@ -33,3 +31,5 @@ def init(name, logfile, level=logging.DEBUG, with_console=True):
 
     return logger
 
+
+logger = init(__name__, os.getenv("COCOTASK_LOG", "cocotask.log"))
