@@ -17,14 +17,14 @@ class CocoRMQConsumer(CocoBaseConsumer):
 
     def connect(self):
         logger.info("CocoRMQConsumer starts working")
-        while 1:
+        while True:
             logger.info("Trying to connect RabbitMQ server ...")
             try:
                 self._connection, channel = createBlockingConnection(self._config)
                 break
             except exceptions.AMQPConnectionError as e:
                 logger.error("Connect failed, exp: %s" % e)
-                logger.debug("Will Try later ...")
+                logger.debug("Will Try later after 10 seconds...")
                 time.sleep(10)
 
         logger.info("Connected, starts consuming ...")
