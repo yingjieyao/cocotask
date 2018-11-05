@@ -1,5 +1,6 @@
 from ..base_consumer import CocoBaseConsumer
 from kafka import KafkaConsumer
+import time
 
 class CocoKafkaConsumer(CocoBaseConsumer):
     def __init__(self, conf, worker, logger = None):
@@ -7,6 +8,16 @@ class CocoKafkaConsumer(CocoBaseConsumer):
     	super().__init__(conf, worker, logger)
         
     def connect(self):
+      while True:
+        try:
+          self._connect_and_consume()
+        except Exception as err:
+          self._logger.error(err)
+          time.sleep(10)
+
+    def _connect_and_consume(self):
+        self._logger.info("connecting to kafka bootstrap server: {}".format(self._config['BOOTSTRAP_SERVERS']))
+
         username = self._config.get("USERNAME", None)
         password = self._config.get("PASSWORD", None)
 
@@ -28,10 +39,19 @@ class CocoKafkaConsumer(CocoBaseConsumer):
 
         self._consumer.subscribe(self._config['TOPIC'])
 
-        while True:
-            for message in self._consumer:
-            	try:
-                    self._logger.debug(message.value)
-                    self._worker.process(message.value)
-            	except Exception as err:
-            		self._logger.error(err)
+        for message in self._consumer:
+          try:
+                data = message.value
+                self._logger.debug(data)
+                self._process_data(data)
+          except Exception as err:
+            self._logger.error(err)
+
+
+    def _process_data(self, data):
+        worker = self._worker_class(self._config)
+        worker.process(data)      
+
+
+
+

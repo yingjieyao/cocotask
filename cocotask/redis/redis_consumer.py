@@ -25,5 +25,10 @@ class CocoRedisConsumer(CocoBaseConsumer):
         self._client.ping()
 
         while True:
-          value = self._client.blpop(self._queue, 0)[1]
-          self._worker.process(value)
+          data = self._client.blpop(self._queue, 0)[1]
+          self.process_data(data)
+
+
+    def process_data(self, data):
+        worker = self._worker_class(self._config)
+        worker.process(data)

@@ -2,7 +2,7 @@
 import pika.exceptions as exceptions
 from ..base_consumer import CocoBaseConsumer
 from .common import createBlockingConnection
-from ..logger import logger
+# from ..logger import logger
 import time
 
 
@@ -16,29 +16,28 @@ class CocoRMQConsumer(CocoBaseConsumer):
         super().__init__(conf, worker, logger)
 
     def connect(self):
-        logger.info("CocoRMQConsumer starts working")
+        self._logger.info("CocoRMQConsumer starts working")
         while True:
-            logger.info("Trying to connect RabbitMQ server ...")
             try:
-                self._connection, channel = createBlockingConnection(self._config)
-                break
-            except exceptions.AMQPConnectionError as e:
-                logger.error("Connect failed, exp: %s" % e)
-                logger.debug("Will Try later after 10 seconds...")
+                self._connect_and_consume()
+            except Exception as err:
+                self._logger.error(err)
+                self._logger.info("reconnect after 10 seconds")
                 time.sleep(10)
 
-        logger.info("Connected, starts consuming ...")
+
+    def _connect_and_consume(self):        
+        self._logger.info("Trying to connect RabbitMQ server ...")
+        self._connection, channel = createBlockingConnection(self._config)
+
+        self._logger.info("Connected, starts consuming ...")
         channel.queue_bind(exchange=self._exchange_name, queue=self._queue_name)
         channel.basic_qos(prefetch_count=1)
-        channel.basic_consume(self.on_message, queue=self._queue_name, no_ack=True)
-        try:
-            channel.start_consuming()
-        except exceptions.AMQPConnectionError or exceptions.ChannelError as e:
-            logger.error("AMQPConnection or Channel error, exp: %s" % e)
-            logger.debug("Trying to reconnect ...")
-            self.connect()
+        channel.basic_consume(self._on_message, queue=self._queue_name, no_ack=True)
 
-        logger.error("Consuming stopped")
+        channel.start_consuming()
 
-    def on_message(self, ch, method, properties, body):
-        self._worker.process(body)
+
+    def _on_message(self, ch, method, properties, body):
+        worker = self._worker_class(self._config)
+        worker.process(body)

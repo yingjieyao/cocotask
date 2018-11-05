@@ -34,19 +34,22 @@ class CocoConsumerManager(object):
     @staticmethod
     def _start_consumer(seq, worker_class, config):
         logger.debug('start consumer')
-        worker = worker_class(config, seq)
+        # worker = worker_class(config, seq)
 
         consumer_type = config["MQ_TYPE"]
-        logger.debug('cusumer type: {}'.format(consumer_type))
+        logger.debug('consumer type: {}'.format(consumer_type))
         consumer_class = CocoConsumerManager.CONSUMER_CLASS[consumer_type]
         sub_config = config[consumer_type]
 
-        while True:
-            try:
-                consumer = consumer_class(sub_config, worker, logger)
-                consumer.connect()
-            except Exception as err:
-                    logger.error(err)
-                    logger.warning("Consumer Error. Reconnect after 10 seconds.")
-                    time.sleep(10)
+        # while True:
+        #     try:
+        #         consumer = consumer_class(sub_config, worker_class, logger)
+        #         consumer.connect()
+        #     except Exception as err:
+        #             logger.error(err)
+        #             logger.warning("Consumer Error. Reconnect after 10 seconds.")
+        #             time.sleep(10)
 
+        # let the consumer handling reconect
+        consumer = consumer_class(sub_config, worker_class, logger)
+        consumer.connect()
