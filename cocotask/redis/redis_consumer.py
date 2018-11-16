@@ -6,20 +6,20 @@ from ..base_consumer import CocoBaseConsumer
 
 class CocoRedisConsumer(CocoBaseConsumer):
 
-    def __init__(self, conf, worker, logger = None):
+    def __init__(self, conf, worker, pool_size, logger = None):
         self._client = None
         self._host = conf['SERVER']
         self._port = int(conf['PORT'])
         self._db = conf.get("DB", 7)
         self._queue = conf.get("QUEUE")
         self._password = conf.get("PASSWORD", None)
-        super().__init__(conf, worker, logger)
+        super().__init__(conf, worker, pool_size, logger)
 
 
     def connect(self):
-        self._client = redis.Redis(host = self._host, 
-                                   port = self._port, 
-                                   decode_responses = True, 
+        self._client = redis.Redis(host = self._host,
+                                   port = self._port,
+                                   decode_responses = True,
                                    db = self._db,
                                    password = self._password)
         self._client.ping()
@@ -31,4 +31,5 @@ class CocoRedisConsumer(CocoBaseConsumer):
 
     def process_data(self, data):
         worker = self._worker_class(self._config)
-        worker.process(data)
+        self._pool.apply_async(worker.process, (data,))
+        # worker.process(data)

@@ -5,15 +5,17 @@ from .common import createBlockingConnection
 # from ..logger import logger
 import time
 
+from multiprocessing import Process
+
 
 class CocoRMQConsumer(CocoBaseConsumer):
 
-    def __init__(self, conf, worker, logger = None):
+    def __init__(self, conf, worker, pool_size, logger = None):
         self._exchange_name = conf['EXCHANGE_NAME']
         self._queue_name = conf['QUEUE_NAME']
         self._connection = None
         self._t = None
-        super().__init__(conf, worker, logger)
+        super().__init__(conf, worker, pool_size, logger)
 
     def connect(self):
         self._logger.info("CocoRMQConsumer starts working")
@@ -26,7 +28,7 @@ class CocoRMQConsumer(CocoBaseConsumer):
                 time.sleep(10)
 
 
-    def _connect_and_consume(self):        
+    def _connect_and_consume(self):
         self._logger.info("Trying to connect RabbitMQ server ...")
         self._connection, channel = createBlockingConnection(self._config)
 
@@ -40,4 +42,5 @@ class CocoRMQConsumer(CocoBaseConsumer):
 
     def _on_message(self, ch, method, properties, body):
         worker = self._worker_class(self._config)
-        worker.process(body)
+        self._pool.apply_async(worker.process, args=(body, ))
+        # worker.process(body)
