@@ -27,13 +27,13 @@ class CocoConsumerManager(object):
         # self._pool = Pool()
         # _ = [self._pool.apply_async(CocoConsumerManager._start_consumer,
         #                             args=[x, self._worker_class, self._config]) for x in range(self._pool_size)]
-        CocoConsumerManager._start_consumer(self._worker_class, self._config)
+        CocoConsumerManager._start_consumer(self._worker_class, self._config, self._pool_size)
         # self._pool.close()
         # self._pool.join()
         # logger.warning("All progress stopped!")
 
     @staticmethod
-    def _start_consumer(worker_class, config):
+    def _start_consumer(worker_class, config, pool_size):
         logger.debug('start consumer')
         # worker = worker_class(config, seq)
 
@@ -52,5 +52,5 @@ class CocoConsumerManager(object):
         #             time.sleep(10)
 
         # let the consumer handling reconect
-        consumer = consumer_class(sub_config, worker_class, self._pool_size, logger)
+        consumer = consumer_class(sub_config, worker_class, pool_size, logger)
         consumer.connect()
