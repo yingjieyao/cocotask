@@ -13,7 +13,7 @@
 
 ## Test
 
-1. install rabbitmq or kafka on local machine (either docker or pure rabbitmq). 
+1. install rabbitmq or kafka on local machine (either docker or pure rabbitmq).
    - Rabbitmq: https://www.rabbitmq.com/
    - Kafka: https://kafka.apache.org/quickstart  (for kafka, you have to manually create a topic named `test_topic_1` in order to run the test. In order to try multiple consumers, you need to set partitions to 2 or above, not 1)
    - Redis: https://redis.io/download
@@ -26,7 +26,7 @@
 
 5. now you have cocotask setup on your machine. To test, you can go to the ./test folder
    - Run: `python producer_test.py`   (this will post a string. Code is very simple)
-   - In another window, under ./test, run:  **`cocotask ./config.json userworkers TestWorker 4`** 
+   - In another window, under ./test, run:  **`cocotask ./config.json userworkers TestWorker`**
      you'll see the worker starts and process 1 message we just posted.
 
 6. So the key part is how we use cocotask command tool. the parameters are:
@@ -74,7 +74,7 @@ In test/config.json
     "MQ_TYPE": "RMQ",  # change this to KAFKA if your underlying MQ is KAFKA
 
     "RMQ": {
-        ...      
+        ...
     },
 
     "KAFKA": {
