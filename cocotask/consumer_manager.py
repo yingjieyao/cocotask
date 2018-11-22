@@ -52,5 +52,5 @@ class CocoConsumerManager(object):
         #             time.sleep(10)
 
         # let the consumer handling reconect
-        consumer = consumer_class(sub_config, worker_class, self._logger)
+        consumer = consumer_class(sub_config, worker_class, logger)
         consumer.connect()
