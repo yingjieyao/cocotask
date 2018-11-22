@@ -35,8 +35,8 @@ class ConsumerTests(unittest.TestCase):
             }
         }
 
-        manager = CocoConsumerManager(config, TestWorker)
-        manager._start_consumer(TestWorker, config)
+        manager = CocoConsumerManager(config, TestWorker, 1)
+        manager._start_consumer(1, TestWorker, config)
         mock_method.assert_called_once()
 
 
@@ -57,8 +57,8 @@ class ConsumerTests(unittest.TestCase):
             }
         }
 
-        manager = CocoConsumerManager(config, TestWorker)
-        manager._start_consumer(TestWorker, config)
+        manager = CocoConsumerManager(config, TestWorker, 1)
+        manager._start_consumer(1, TestWorker, config)
         mock_method.assert_called_once()
 
 
@@ -74,8 +74,8 @@ class ConsumerTests(unittest.TestCase):
             }
         }
 
-        manager = CocoConsumerManager(config, TestWorker)
-        manager._start_consumer(TestWorker, config)
+        manager = CocoConsumerManager(config, TestWorker, 1)
+        manager._start_consumer(1, TestWorker, config)
         mock_method.assert_called_once()
 
 
@@ -92,8 +92,8 @@ class ConsumerTests(unittest.TestCase):
             }
         }
 
-        manager = CocoConsumerManager(config, TestWorker)
-        manager._start_consumer(TestWorker, config)
+        manager = CocoConsumerManager(config, TestWorker, 1)
+        manager._start_consumer(1, TestWorker, config)
         mock_method.assert_called_once()
 
 

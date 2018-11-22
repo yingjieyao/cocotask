@@ -29,7 +29,7 @@ def main():
     parser.add_argument('config', help = 'define config file path')
     parser.add_argument('module', help = 'define the module name')
     parser.add_argument('worker', help = 'define the worker class name')
-    # parser.add_argument('worker_number', help = 'number of workers to work', type=int)
+    parser.add_argument('worker_number', help = 'number of workers to work', type=int)
     parser.add_argument('--logginglevel', help = 'define logging level')
     parser.add_argument('--modulepath', default = '.', help = 'path to the module. Default to .')
 
@@ -42,7 +42,7 @@ def main():
     config = load_config(args.config)
     worker_class = class_for_name(args.module, args.worker, args.modulepath)
 
-    manager = CocoConsumerManager(config, worker_class)
+    manager = CocoConsumerManager(config, worker_class, args.worker_number)
     manager.start()
 
 

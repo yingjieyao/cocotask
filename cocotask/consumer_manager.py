@@ -15,9 +15,10 @@ class CocoConsumerManager(object):
         "REDIS": CocoRedisConsumer
     }
 
-    def __init__(self, config, worker_class, customized_logger = None):
+    def __init__(self, config, worker_class, pool_size, customized_logger = None):
         self._worker_class = worker_class
-        # self._pool = None
+        self._pool = None
+        self._pool_size = pool_size
         self._config = config
         if customized_logger:
             self._logger = customized_logger
@@ -26,13 +27,13 @@ class CocoConsumerManager(object):
         # self._pool = Pool()
         # _ = [self._pool.apply_async(CocoConsumerManager._start_consumer,
         #                             args=[x, self._worker_class, self._config]) for x in range(self._pool_size)]
-        CocoConsumerManager._start_consumer(self._worker_class, self._config)
+        CocoConsumerManager._start_consumer(1, self._worker_class, self._config)
         # self._pool.close()
         # self._pool.join()
         # logger.warning("All progress stopped!")
 
     @staticmethod
-    def _start_consumer(worker_class, config):
+    def _start_consumer(seq, worker_class, config):
         logger.debug('start consumer')
         # worker = worker_class(config, seq)
 
