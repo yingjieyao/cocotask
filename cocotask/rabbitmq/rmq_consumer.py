@@ -10,12 +10,12 @@ from multiprocessing import Process
 
 class CocoRMQConsumer(CocoBaseConsumer):
 
-    def __init__(self, conf, worker, pool_size, logger = None):
+    def __init__(self, conf, worker, logger = None):
         self._exchange_name = conf['EXCHANGE_NAME']
         self._queue_name = conf['QUEUE_NAME']
         self._connection = None
         self._t = None
-        super().__init__(conf, worker, pool_size, logger)
+        super().__init__(conf, worker, logger)
 
     def connect(self):
         self._logger.info("CocoRMQConsumer starts working")
@@ -42,5 +42,6 @@ class CocoRMQConsumer(CocoBaseConsumer):
 
     def _on_message(self, ch, method, properties, body):
         worker = self._worker_class(self._config)
-        self._pool.apply_async(worker.process, args=(body, ))
-        # worker.process(body)
+        p = Process(target=worker.process, args=(body, ))
+        p.start()
+        p.join()

@@ -3,17 +3,18 @@
 import redis
 import json
 from ..base_consumer import CocoBaseConsumer
+from multiprocessing import Process
 
 class CocoRedisConsumer(CocoBaseConsumer):
 
-    def __init__(self, conf, worker, pool_size, logger = None):
+    def __init__(self, conf, worker, logger = None):
         self._client = None
         self._host = conf['SERVER']
         self._port = int(conf['PORT'])
         self._db = conf.get("DB", 7)
         self._queue = conf.get("QUEUE")
         self._password = conf.get("PASSWORD", None)
-        super().__init__(conf, worker, pool_size, logger)
+        super().__init__(conf, worker, logger)
 
 
     def connect(self):
@@ -31,5 +32,7 @@ class CocoRedisConsumer(CocoBaseConsumer):
 
     def process_data(self, data):
         worker = self._worker_class(self._config)
-        self._pool.apply_async(worker.process, (data,))
+        p = Process(target=worker.process, args=(data, ))
+        p.start()
+        p.join()
         # worker.process(data)

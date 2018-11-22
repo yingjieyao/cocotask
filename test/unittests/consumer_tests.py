@@ -31,12 +31,12 @@ class ConsumerTests(unittest.TestCase):
                 "PASSWORD": "guest",
                 "EXCHANGE_NAME": "test_exchange_1",
                 "QUEUE_NAME": "test_queue_1",
-                "EXCHANGE_TYPE": "direct"                   
+                "EXCHANGE_TYPE": "direct"
             }
         }
 
-        manager = CocoConsumerManager(config, TestWorker, 1)
-        manager._start_consumer(1, TestWorker, config)
+        manager = CocoConsumerManager(config, TestWorker)
+        manager._start_consumer(TestWorker, config)
         mock_method.assert_called_once()
 
 
@@ -53,12 +53,12 @@ class ConsumerTests(unittest.TestCase):
                 "EXCHANGE_NAME": "test_exchange_1",
                 "QUEUE_NAME": "test_queue_1",
                 "EXCHANGE_TYPE": "direct",
-                "HEARTBEAT": 10             
+                "HEARTBEAT": 10
             }
         }
 
-        manager = CocoConsumerManager(config, TestWorker, 1)
-        manager._start_consumer(1, TestWorker, config)
+        manager = CocoConsumerManager(config, TestWorker)
+        manager._start_consumer(TestWorker, config)
         mock_method.assert_called_once()
 
 
@@ -74,8 +74,8 @@ class ConsumerTests(unittest.TestCase):
             }
         }
 
-        manager = CocoConsumerManager(config, TestWorker, 1)
-        manager._start_consumer(1, TestWorker, config)
+        manager = CocoConsumerManager(config, TestWorker)
+        manager._start_consumer(TestWorker, config)
         mock_method.assert_called_once()
 
 
@@ -92,8 +92,8 @@ class ConsumerTests(unittest.TestCase):
             }
         }
 
-        manager = CocoConsumerManager(config, TestWorker, 1)
-        manager._start_consumer(1, TestWorker, config)
+        manager = CocoConsumerManager(config, TestWorker)
+        manager._start_consumer(TestWorker, config)
         mock_method.assert_called_once()
 
 

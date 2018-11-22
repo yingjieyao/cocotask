@@ -17,6 +17,6 @@ class TestWorker(CocoBaseWorker):
 with open('config.json', 'r') as f:
     config = json.loads(jsmin(f.read()))
 
-manager = CCManager(config, TestWorker, 4)
+manager = CCManager(config, TestWorker)
 manager.start()
 
