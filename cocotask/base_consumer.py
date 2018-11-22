@@ -1,6 +1,5 @@
 from abc import ABC, abstractmethod
 import logging
-from multiprocessing import Pool
 default_logger = logging.getLogger(__name__)
 
 class CocoBaseConsumer(ABC):
