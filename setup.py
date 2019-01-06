@@ -9,26 +9,26 @@ with open(path.join(here, 'README.md'), encoding='utf-8') as f:
 
 setup(
 	name='cocotask',
-    
-	version='0.2.0.0',
-    
+
+	version='0.2.0.1',
+
     description='An unified framework to build task queue on Rabbitmq | Kafka | Redis',
     long_description=long_description,
-    long_description_content_type='text/markdown', 
+    long_description_content_type='text/markdown',
 
     url='https://github.com/likexx/cocotask',
-    
+
     author='Like Zhang',
-    
+
     author_email='zlike@yahoo.com',
 
-    license='MIT',  
-    
+    license='MIT',
+
 #    packages=[''],
     packages=find_packages(exclude=['release.sh']),
 
     zip_safe=False,
-      
+
     entry_points={
         'console_scripts': [
             'cocotask = cocotask.taskrunner:main',
@@ -36,7 +36,7 @@ setup(
     },
 
 	keywords='task message queue MQ Pika kafka-python rabbitmq kafka redis rmq producer consumer celery',
-    
+
     install_requires=['pika', 'kafka-python', 'redis', 'jsmin'],
 
     project_urls={  # Optional
