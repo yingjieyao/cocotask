@@ -15,7 +15,7 @@ from ..base_producer import CocoBaseProducer
 class CocoCocoProducer(CocoBaseProducer):
 
     def __init__(self, conf, logger=None):
-        self._headers = {'Authorization': 'Token {}'.format(conf.get('TOKEN'))}
+        self._headers = {'Authorization': 'Token: {}'.format(conf.get('TOKEN'))}
         self._producer_url = conf.get('PRODUCER_URL')
         super().__init__(conf, logger)
 

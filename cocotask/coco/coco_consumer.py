@@ -15,7 +15,7 @@ from multiprocessing import Process
 class CocoCocoConsumer(CocoBaseConsumer):
 
     def __init__(self, conf, worker, logger=None):
-        self._headers = {'Authorization': 'Token {}'.format(conf.get('TOKEN'))}
+        self._headers = {'Authorization': 'Token: {}'.format(conf.get('TOKEN'))}
         self._consumer_url = conf.get('CONSUMER_URL')
         super().__init__(conf, worker, logger)
 
