@@ -21,7 +21,7 @@ class CocoCocoConsumer(CocoBaseConsumer):
     def connect(self):
         while True:
             resp = requests.get(self._consumer_url, headers=self._headers)
-            json_data = json.loads(resp)
+            json_data = json.loads(resp.text)
             if json_data.get('error', -1) == 0:
                 self.process_data(json_data.get('result'))
 
