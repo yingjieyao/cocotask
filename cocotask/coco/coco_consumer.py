@@ -11,7 +11,7 @@ import requests
 import json
 from ..base_consumer import CocoBaseConsumer
 
-class CocoCocoConsumer(CocobaseConsumer):
+class CocoCocoConsumer(CocoBaseConsumer):
 
     def __init__(self, conf, worker, logger=None):
         self._headers = {'Authorization': 'Token {}'.format(conf.get('TOKEN'))}
