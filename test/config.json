@@ -9,7 +9,7 @@
         "PASSWORD": "guest",
         "EXCHANGE_NAME": "test_exchange_1",
         "QUEUE_NAME": "test_queue_1",
-        "EXCHANGE_TYPE": "direct"       
+        "EXCHANGE_TYPE": "direct"
     },
 
     "KAFKA": {
@@ -27,6 +27,12 @@
         "DB": 7,
         "QUEUE": "trainqueue",
         "PASSWORD": "abcd1234"  // password is optional
+    },
+
+    "COCO": {
+        "TOKEN": "TOKEN HERE",
+        "CONSUMER_URL": "http://x.x.x.x",
+        "PRODUCER_URL": "http://x.x.x.x"
     }
 
 }
