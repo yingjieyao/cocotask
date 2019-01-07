@@ -24,7 +24,7 @@ class CocoCocoProducer(CocoBaseProducer):
         pass
 
     def send(self, data):
-        requests.post(self._producer_url, headers=self._headers, data={"message": data})
+        requests.post(self._producer_url, headers=self._headers, json={"message": data})
 
 
     def close(self):
